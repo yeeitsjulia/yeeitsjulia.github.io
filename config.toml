@@ -1,0 +1,5 @@
+baseURL = "https://yeeitsjulia.github.io"
+languageCode = "en-us"
+title = "julia's blog"
+theme = "contrast-hugo"
+publishDir = "docs"

@@ -2,6 +2,7 @@ SHELL:=/bin/bash
 BASEDIR=$(CURDIR)
 OUTPUTDIR=docs
 PUBLISHBRANCH=gh-pages
+PROJECTNAME=yeeitsjulia.github.io
 
 .PHONY: publish
 publish: clean get_public generate
@@ -26,7 +27,7 @@ get_public:
 	@echo "point $(OUTPUTDIR)/ to $(PUBLISHBRANCH) branch"
 	git worktree add -B $(PUBLISHBRANCH) $(OUTPUTDIR) origin/$(PUBLISHBRANCH)
 	@echo "remove existing files"
-	rm -rf public/*
+	rm -rf $(OUTPUTDIR)/*
 
 .PHONY: generate
 generate:
@@ -36,7 +37,7 @@ generate:
 .PHONY: deploy
 deploy:
 	@echo "deploy generated static site"
-	@cd $(BASEDIR)/$(OUTPUTDIR)
-	git add -A
-	git ci -m "deploy updated site"
-	git push git@github.com-yeeitsjulia:yeeitsjulia/yeeitsjulia.github.io.git $(PUBLISHBRANCH)
+	@cd $(BASEDIR)/$(OUTPUTDIR) && \
+	git add -A && \
+	git ci -m "deploy updated site" && \
+	git push origin $(PUBLISHBRANCH)
